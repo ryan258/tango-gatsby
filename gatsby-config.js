@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Team Tango!`,
+    description: `We're here to help you get your marketing tango on.`,
+    author: `@tango`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -30,5 +30,35 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-source-wordpress`,
+      options: {
+        excludedRoutes: [
+          `/wp/v2/users/**`,
+          `/wp/v2/settings*`,
+          `/wp/v2/themes*`,
+        ],
+        baseUrl: `localhost:8080`,
+        protocol: `http`,
+        hostingWPCOM: false,
+        useACF: true,
+        searchAndReplaceContentUrls: {
+          sourceUrl: `http://localhost:8080`,
+          replacementUrl: ``,
+        },
+      },
+    },
+    `gatsby-plugin-styled-components`,
+    {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Teko`,
+            variants: [`200`, `400`, `500`, `600`, `700`],
+          },
+        ],
+      },
+    },
   ],
 }
