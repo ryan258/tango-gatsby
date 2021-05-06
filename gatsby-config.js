@@ -1,21 +1,25 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    title: `Tango Brands!`,
+    description: `Discover Tango Brands! through this nifty WP backend w/ a GatsbyJS frontend.`,
     author: `@gatsbyjs`,
   },
+  flags: { PRESERVE_WEBPACK_CACHE: true },
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     {
+      // let gatsby know where we have files, we can have multiple objects of this to target different folders of things
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
       },
     },
+    // these are for optimizing images
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    // makes it so a little icon can be added to mobile devices
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -34,27 +38,17 @@ module.exports = {
         // Add any options here
       },
     },
+    `gatsby-plugin-preload-fonts`,
     {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      resolve: `gatsby-source-wordpress`,
       options: {
-        fonts: [
-          {
-            family: `Oswald`,
-            subsets: [`latin`],
-          },
-          {
-            family: `Open Sans`,
-            variants: [`400`, `700`],
-          },
-        ],
+        url: `http://localhost:8080/graphql`,
+        schema: {
+          timeout: 3000000,
+          // perPage: 10,
+        },
       },
     },
-    // {
-    //   resolve: `gatsby-source-wordpress`,
-    //   options: {
-    //     // url: ``
-    //   },
-    // },
     `gatsby-plugin-gatsby-cloud`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
